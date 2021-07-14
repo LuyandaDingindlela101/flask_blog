@@ -1,7 +1,9 @@
 #   IMPORT Flask AND THE render_template FUNCTION
 from flask import Flask, render_template, url_for
-
+from forms import RegistrationForm, LoginForm
 app = Flask(__name__)
+#   SECRET KEY PROTECTS APP FROM MODIFYING COOKIES AND SECURITY TYPE STUFF
+app.config["SECRET_KEY"] = "b3d9315ea350f6023ab5b8582c044883"
 
 posts = [
     {
@@ -28,6 +30,18 @@ def home():
 @app.route("/about")
 def about():
     return render_template("about.html", title="About")
+
+
+@app.route("/register")
+def register():
+    form = RegistrationForm()
+    return render_template("register.html", title="Register", form=form)
+
+
+@app.route("/login")
+def login():
+    form = LoginForm()
+    return render_template("login.html", title="Login", form=form)
 
 
 if __name__ == "__main__":
